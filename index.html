@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="th" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RIFCAMPSHOP | อุปกรณ์แคมป์ปิ้งคุณภาพ</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root, [data-bs-theme="light"] {
+            --primary-bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-color: #1a202c;
+            --accent-cyber: #00f2fe;
+            --neon-glow: rgba(0, 242, 254, 0.6);
+            --laser-grid: rgba(0, 242, 254, 0.04);
+            --particle-color: rgba(0, 242, 254, 0.3);
+            --border-color: rgba(0, 242, 254, 0.25);
+            --btn-cta-bg: #1a202c;
+            --btn-cta-text: #00f2fe;
+            --cart-item-bg: rgba(0, 242, 254, 0.08);
+            --select-bg: #ffffff;
+            --select-text: #1a202c;
+            
+            --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+            --modal-content-bg: rgba(20, 25, 35, 0.95);
+            --modal-text-color: #ffffff;
+        }
+        
+        [data-bs-theme="dark"] {
+            --primary-bg: #04080f;
+            --card-bg: rgba(10, 20, 30, 0.75);
+            --text-color: #f7fafc;
+            --accent-cyber: #00f2fe;
+            --neon-glow: rgba(0, 242, 254, 0.8);
+            --laser-grid: rgba(0, 242, 254, 0.06);
+            --particle-color: rgba(0, 242, 254, 0.35);
+            --border-color: rgba(0, 242, 254, 0.3);
+            --btn-cta-bg: #00f2fe;
+            --btn-cta-text: #000000;
+            --cart-item-bg: rgba(0, 242, 254, 0.12);
+            --select-bg: rgba(0,0,0,0.4);
+            --select-text: #ffffff;
+            
+            --modal-overlay-bg: rgba(0, 0, 0, 0.75);
+            --modal-content-bg: rgba(10, 15, 25, 0.95);
+            --modal-text-color: #ffffff;
+        }
+        
+        body {
+            font-family: 'Prompt', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
+            width: 100%;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* --- Light mode: white background --- */
+        [data-bs-theme="light"] body {
+            background-color: #ffffff;
+        }
+
+        [data-bs-theme="light"] .tech-particle {
+            box-shadow: 0 0 16px rgba(0, 150, 255, 0.7);
+            background-color: rgba(0, 130, 255, 0.55);
+        }
+
+        .cyber-bg-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
+            perspective: 800px;
+            overflow: hidden;
+        }
+
+        .laser-aurora {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: radial-gradient(circle at 75% 25%, var(--laser-grid) 0%, transparent 55%),
+                        radial-gradient(circle at 20% 75%, rgba(0, 242, 254, 0.05) 0%, transparent 50%);
+            filter: blur(40px);
+            animation: grid-pulse 12s infinite alternate ease-in-out;
+        }
+
+        .laser-grid-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(var(--laser-grid) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--laser-grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            opacity: 0.7;
+            bottom: 0;
+            animation: grid-move 8s infinite linear;
+        }
+
+        @keyframes grid-pulse {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.15) translate(30px, -30px); }
+        }
+
+        @keyframes grid-move {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
+        }
+
+        .tech-particle {
+            position: absolute;
+            background-color: var(--particle-color);
+            box-shadow: 0 0 12px var(--accent-cyber), inset 0 0 6px rgba(255,255,255,0.4);
+            border: 1px solid var(--accent-cyber);
+            bottom: -50px;
+            border-radius: 2px;
+            transform-style: preserve-3d;
+            animation: float-up infinite linear;
+        }
+
+        .p1 { width: 14px; height: 14px; left: 6%; animation-duration: 10s; animation-delay: 0s; }
+        .p2 { width: 6px; height: 6px; left: 18%; animation-duration: 16s; animation-delay: -2s; }
+        .p3 { width: 18px; height: 18px; left: 30%; animation-duration: 13s; animation-delay: -5s; }
+        .p4 { width: 8px; height: 8px; left: 42%; animation-duration: 20s; animation-delay: -4s; }
+        .p5 { width: 12px; height: 12px; left: 54%; animation-duration: 11s; animation-delay: -7s; }
+        .p6 { width: 20px; height: 20px; left: 63%; animation-duration: 18s; animation-delay: -3s; }
+        .p7 { width: 9px; height: 9px; left: 72%; animation-duration: 14s; animation-delay: -9s; }
+        .p8 { width: 16px; height: 16px; left: 80%; animation-duration: 9s; animation-delay: -6s; }
+        .p9 { width: 7px; height: 7px; left: 90%; animation-duration: 17s; animation-delay: -1s; }
+        .p10 { width: 22px; height: 22px; left: 95%; animation-duration: 22s; animation-delay: -10s; }
+
+        @keyframes float-up {
+            0% { transform: translateY(0) rotateX(0deg) rotateY(0deg); opacity: 0; }
+            10% { opacity: 0.85; }
+            50% { transform: translateY(-60vh) rotateX(180deg) rotateY(180deg); }
+            90% { opacity: 0.85; }
+            100% { transform: translateY(-120vh) rotateX(360deg) rotateY(360deg); opacity: 0; }
+        }
+
+        .navbar {
+            background-color: rgba(4, 8, 15, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s;
+        }
+        [data-bs-theme="light"] .navbar {
+            background-color: rgba(240, 242, 255, 0.85);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--text-color) !important;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .cyber-logo {
+            width: 42px;
+            height: 42px;
+            margin-right: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-cyber);
+            box-shadow: 0 0 10px var(--neon-glow);
+            object-fit: cover;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .navbar-brand:hover .cyber-logo {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* --- Mouse / Touch Glow --- */
+        .mouse-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, rgba(0, 242, 254, 0.10) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            mix-blend-mode: screen;
+        }
+        .mouse-glow.active {
+            opacity: 1;
+        }
+        .navbar-brand span {
+            color: var(--accent-cyber);
+            text-shadow: 0 0 10px var(--neon-glow);
+        }
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-color) !important;
+            margin: 0 10px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-cyber) !important;
+            text-shadow: 0 0 8px var(--neon-glow);
+        }
+
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(4, 8, 15, 1)), url('https://images.unsplash.com/photo-1510312305653-8ed496efae75?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 0 60px 0;
+        }
+        .hero-section h1 {
+            color: #ffffff; 
+            font-size: 3.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            word-break: break-word;
+        }
+        .hero-section h1 span {
+            color: var(--accent-cyber);
+            text-shadow: 0 0 15px var(--neon-glow);
+        }
+        .hero-section p {
+            color: rgba(255, 255, 255, 0.9) !important;
+            max-width: 700px;
+            margin: 0 auto 24px auto;
+        }
+        .btn-cta {
+            background-color: var(--btn-cta-bg);
+            color: var(--btn-cta-text);
+            padding: 14px 40px;
+            border: 2px solid var(--accent-cyber);
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-radius: 0px;
+            transition: 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        .btn-cta:hover {
+            background-color: var(--accent-cyber);
+            color: #000000 !important;
+            box-shadow: 0 0 25px var(--neon-glow);
+            transform: translateY(-3px);
+        }
+
+        .section-padding { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title-frame {
+            display: inline-block;
+            padding: 20px 30px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            box-shadow: 0 0 20px var(--neon-glow), inset 0 0 20px rgba(0, 242, 254, 0.05);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            max-width: 100%;
+        }
+        .section-title h2 { font-weight: 700; letter-spacing: 1px; font-size: 1.8rem; }
+        .section-title h2 span { color: var(--accent-cyber); text-shadow: 0 0 10px var(--neon-glow); }
+
+        [data-bs-theme="light"] .mouse-glow {
+            background: radial-gradient(circle, rgba(20, 110, 255, 0.35) 0%, rgba(20, 110, 255, 0.12) 40%, transparent 70%);
+        }
+        
+        .category-header {
+            border-left: 4px solid var(--accent-cyber);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.3rem;
+        }
+        
+        .product-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            min-width: 240px; /* ✨ ป้องกันการ์ดโดนบีบจนแฟบและข้อความกลายเป็นแนวตั้ง */
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyber);
+            box-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+        }
+
+        .product-card img.card-img-top {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;   
+            filter: grayscale(15%);
+            transition: all 0.5s;
+        }
+        .product-card:hover img.card-img-top { 
+            filter: grayscale(0%);
+            transform: scale(1.03); 
+        }
+
+        .img-watermark-logo {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 242, 254, 0.6);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            object-fit: cover;
+            z-index: 10;
+            pointer-events: none; 
+            opacity: 0.85;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .product-card:hover .img-watermark-logo {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .product-card .card-body { 
+            padding: 20px; 
+            word-break: break-word; /* ป้องกันคำภาษาไทยพังยาวทะลุ */
+        }
+
+        [data-bs-theme="light"] .product-card {
+            background-color: #000000;
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+        [data-bs-theme="light"] .product-card .card-title {
+            color: #ffffff;
+        }
+        [data-bs-theme="light"] .product-card .card-text.text-muted {
+            color: #b0bcc9 !important;
+        }
+        [data-bs-theme="light"] .product-card .btn-cyber-outline {
+            color: #ffffff;
+        }
+        
+        .product-tag {
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid var(--accent-cyber);
+            color: var(--accent-cyber);
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .btn-cyber-outline {
+            border: 1px solid var(--accent-cyber);
+            color: var(--text-color);
+            border-radius: 0px;
+            font-weight: 600;
+            transition: 0.2s;
+            width: 100%;
+        }
+        .btn-cyber-outline:hover {
+            background-color: var(--accent-cyber);
+            color: #000000;
+            box-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .contact-section {
+            background-color: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--border-color);
+            border-radius: 0px;
+            margin-bottom: 50px;
+        }
+
+        .form-control, .form-select {
+            padding: 12px;
+            border-radius: 0px;
+            border: 1px solid var(--border-color);
+            background-color: var(--select-bg) !important;
+            color: var(--select-text) !important;
+        }
+        .form-select option {
+            background-color: var(--select-bg);
+            color: var(--select-text);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-cyber);
+            box-shadow: 0 0 12px var(--neon-glow);
+        }
+
+        .sub-category-wrapper {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s ease;
+        }
+        .sub-category-wrapper.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-box {
+            border: 1px dashed var(--accent-cyber);
+            background-color: rgba(0,0,0,0.1);
+            padding: 15px;
+            min-height: 60px;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--cart-item-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            margin: 6px 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-qty {
+            background: transparent;
+            border: 1px solid var(--accent-cyber);
+            color: var(--text-color);
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-qty:hover {
+            background-color: var(--accent-cyber);
+            color: #000000;
+        }
+        .qty-num {
+            min-width: 20px;
+            text-align: center;
+        }
+        .btn-remove-item {
+            cursor: pointer;
+            color: #ff4d4d;
+            margin-left: 5px;
+            transition: 0.2s;
+        }
+        .btn-remove-item:hover { transform: scale(1.15); }
+
+        .btn-submit {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--accent-cyber);
+            padding: 14px;
+            font-weight: 700;
+            width: 100%;
+            border-radius: 0px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { 
+            background-color: var(--accent-cyber); 
+            color: #000000;
+            box-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .cyber-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .cyber-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cyber-modal-content {
+            background-color: var(--modal-content-bg);
+            border: 2px solid #ffffff; 
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            padding: 30px;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 0px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Prompt', sans-serif;
+            color: var(--modal-text-color) !important;
+        }
+        .cyber-modal-overlay.active .cyber-modal-content {
+            transform: scale(1);
+        }
+        .cyber-modal-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #ffffff !important;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 12px;
+        }
+        .cyber-modal-body {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: left;
+            margin-bottom: 25px;
+            color: #ffffff !important;
+        }
+        .modal-cart-summary {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-left: 3px solid var(--accent-cyber);
+            padding: 12px 15px;
+            margin-top: 10px;
+            max-height: 180px;
+            overflow-y: auto;
+            color: #ffffff !important;
+        }
+        .btn-modal-close {
+            background-color: transparent;
+            color: #ffffff !important;
+            border: 1px solid #ffffff;
+            padding: 10px 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 0px;
+            transition: 0.2s;
+            letter-spacing: 1px;
+        }
+        .btn-modal-close:hover {
+            background-color: #ffffff;
+            color: #000000 !important;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        footer {
+            background-color: #010307;
+            color: #bc9fcd;
+            padding: 60px 0 30px;
+            border-top: 2px solid var(--border-color);
+        }
+        footer a { color: #a0aec0; text-decoration: none; }
+        footer a:hover { color: var(--accent-cyber); }
+        .social-icon { color: var(--text-color); font-size: 1.3rem; transition: 0.2s; }
+        .social-icon:hover { color: var(--accent-cyber); text-shadow: 0 0 8px var(--neon-glow); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; margin-top: 40px; text-align: center; font-size: 0.85rem; }
+
+        .theme-toggle-btn {
+            cursor: pointer;
+            padding: 8px 18px;
+            border-radius: 0px;
+            background-color: transparent;
+            color: var(--accent-cyber);
+            border: 1px solid var(--accent-cyber);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+        .theme-toggle-btn:hover {
+            box-shadow: 0 0 10px var(--neon-glow);
+            background-color: rgba(0, 242, 254, 0.1);
+        }
+
+        /* 📱 จัดการ Responsive สำหรับหน้าจอมือถือและจอแคบจัดพิเศษ */
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 2.5rem; }
+            .section-title h2 { font-size: 1.5rem; }
+            .product-card { min-width: 100%; } /* บังคับให้การ์ดขยายเต็มความกว้างจอเดี่ยวในมือถือ */
+        }
+
+        @media (max-width: 400px) {
+            .hero-section h1 { font-size: 2.0rem; }
+            .btn-cta { width: 100%; padding: 12px 20px; }
+            .navbar-brand { font-size: 1.2rem; }
+            .cyber-logo { width: 34px; height: 34px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-bg-container">
+        <div class="laser-aurora"></div>
+        <div class="laser-grid-lines"></div>
+        <div class="tech-particle p1"></div>
+        <div class="tech-particle p2"></div>
+        <div class="tech-particle p3"></div>
+        <div class="tech-particle p4"></div>
+        <div class="tech-particle p5"></div>
+        <div class="tech-particle p6"></div>
+        <div class="tech-particle p7"></div>
+        <div class="tech-particle p8"></div>
+        <div class="tech-particle p9"></div>
+        <div class="tech-particle p10"></div>
+    </div>
+
+    <div class="mouse-glow" id="mouseGlow"></div>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img class="cyber-logo" src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" alt="RifCamp Logo">
+                RIFCAMPSHOP<span>//</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()">
+                            <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+                            <span id="themeText">โหมดมืด</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-section">
+        <div class="container text-center px-3">
+            <h1>RIFCAMP<span>Shop</span></h1>
+            <p>ร้านขายอุปกรณ์แคมป์ปิ้ง คัดสรรอุปกรณ์เอาท์ดอร์และแคมป์ปิ้งเทคระดับไฮเอนด์ แข็งแกร่ง ทนทาน ท้าทายทุกสภาพอากาศ</p>
+            <a href="#contact" class="btn-cta">CONNECT // สั่งซื้อสินค้า</a>
+        </div>
+    </header>
+
+    <section id="products" class="section-padding">
+        <div class="container px-3">
+            <div class="section-title">
+                <div class="section-title-frame">
+                    <h2>GEAR CATEGORIES<span>// หมวดหมู่สินค้า</span></h2>
+                    <p class="mb-0 small">เลือกช้อปตามหมวดหมู่ที่คุณสนใจ หรือดูสินค้าทั้งหมดด้านล่าง</p>
+                </div>
+            </div>
+
+            <!-- หมวดหมู่ที่ 1 -->
+            <div class="mb-5">
+                <h3 class="category-header">01 อุปกรณ์พักแรม</h3>
+                <div class="row g-4"> 
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://lh3.googleusercontent.com/d/1wwJh4BjRIZZwyH9_VdJnuu-pLXjji8YO" class="card-img-top" alt="เต็นท์">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SHELTER GEAR</span>
+                                    <h5 class="card-title">เต็นท์</h5>
+                                    <p class="card-text text-muted small">กันน้ำ 100% ระบายอากาศได้ดีเยี่ยม กางง่ายภายใน 5 นาที</p>
+                                </div>
+                                <button onclick="quickAdd('เต็นท์')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่มลงฟอร์ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-6347d54a-1c4f-470a-b37b-f3a590003dac.png" class="card-img-top" alt="ถุงนอน">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SHELTER GEAR</span>
+                                    <h5 class="card-title">ถุงนอน</h5>
+                                    <p class="card-text text-muted small">เส้นใยสังเคราะห์พิเศษ เก็บความอบอุ่นได้ดีเยี่ยม น้ำหนักเบา</p>
+                                </div>
+                                <button onclick="quickAdd('ถุงนอน')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่มลงฟอร์ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-f800088d-c2c5-4afd-b24a-668171a58574.png" class="card-img-top" alt="แผ่นรองนอน">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SHELTER GEAR</span>
+                                    <h5 class="card-title">แผ่นรองนอน</h5>
+                                    <p class="card-text text-muted small">หนานุ่ม นอนสบาย ลดอาการปวดหลัง รองรับสรีระได้ดี</p>
+                                </div>
+                                <button onclick="quickAdd('แผ่นรองนอน')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่มลงฟอร์ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวดหมู่ที่ 2 -->
+            <div class="mb-5">
+                <h3 class="category-header">02 อุปกรณ์ทำอาหาร</h3>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-10c4c694-ef8b-4dfb-9abd-e09450a25957.png" class="card-img-top" alt="เตาแก๊สพกพา">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">COOKING</span>
+                                    <h5 class="card-title">เตาแก๊สพกพา</h5>
+                                    <p class="card-text text-muted small">ขนาดกะทัดรัด ทนลมแรง ควบคุมไฟง่าย</p>
+                                </div>
+                                <button onclick="quickAdd('เตาแก๊สพกพา')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100"> 
+                            <div class="product-img-wrapper">
+                                <img src="https://lh3.googleusercontent.com/d/1icIHaaHfZlCQL2qIkDgnPnJBPWH3B1Ru" class="card-img-top" alt="กระทะ">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">COOKING</span>
+                                    <h5 class="card-title">กระทะ</h5>
+                                    <p class="card-text text-muted small">เคลือบสารกันติด น้ำหนักเบา กระจายความร้อนได้ดี</p>
+                                </div>
+                                <button onclick="quickAdd('กระทะ')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-2531741a-9483-4cd3-a795-0880cc6b1b49.png" class="card-img-top" alt="กาต้มน้ำร้อน">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">COOKING</span>
+                                    <h5 class="card-title">กาต้มน้ำร้อน</h5>
+                                    <p class="card-text text-muted small">ขนาดกะทัดรัด ร้อนไว ทนทานความร้อนสูง พกพาสะดวก</p>
+                                </div>
+                                <button onclick="quickAdd('กาต้มน้ำร้อน')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวดหมู่ที่ 3 -->
+            <div class="mb-5">
+                <h3 class="category-header">03 อุปกรณ์ให้แสงสว่าง</h3>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-b80682ad-8671-406f-a39a-8ca69eb72760.png" class="card-img-top" alt="ไฟฉาย">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">LIGHTING</span>
+                                    <h5 class="card-title">ไฟฉาย</h5>
+                                    <p class="card-text text-muted small">ไฟฉาย LED ความสว่างสูง ส่องได้ไกล ชาร์จซ้ำได้</p>
+                                </div>
+                                <button onclick="quickAdd('ไฟฉาย')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-b1f03404-0117-46bc-b1cb-360c906eb760.png" class="card-img-top" alt="โคมไฟ">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">LIGHTING</span>
+                                    <h5 class="card-title">โคมไฟ</h5>
+                                    <p class="card-text text-muted small">โคมไฟตะเกียงให้แสงสว่างรอบทิศทาง สร้างบรรยากาศแคมป์</p>
+                                </div>
+                                <button onclick="quickAdd('โคมไฟ')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-8d9bcb33-62d5-44a6-ac68-956bc09f8501.png" class="card-img-top" alt="ไฟคาดหัว">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">LIGHTING</span>
+                                    <h5 class="card-title">ไฟคาดหัว</h5>
+                                    <p class="card-text text-muted small">ไฟคาดหัวลุยฝนอเนกประสงค์ สำหรับทำกิจกรรมตอนกลางคืน</p>
+                                </div>
+                                <button onclick="quickAdd('ไฟคาดหัว')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวดหมู่ที่ 4 -->
+            <div class="mb-5">
+                <h3 class="category-header">04 อุปกรณ์ความปลอดภัย</h3>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-735f4c61-5ee3-431a-abb7-a5a5f7a5c71a.png" class="card-img-top" alt="ชุดปฐมพยาบาล">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SAFETY</span>
+                                    <h5 class="card-title">ชุดปฐมพยาบาล</h5>
+                                    <p class="card-text text-muted small">กระเป๋าชุดปฐมพยาบาลฉุกเฉิน พร้อมอุปกรณ์ทำแผลเบื้องต้นครบครัน</p>
+                                </div>
+                                <button onclick="quickAdd('ชุดปฐมพยาบาล')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-3ac4a402-e654-4010-bbe9-030fee0b9b75.png" class="card-img-top" alt="มีดพก">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SAFETY</span>
+                                    <h5 class="card-title">มีดพก</h5>
+                                    <p class="card-text text-muted small">มีดพกอเนกประสงค์ แข็งแรงทนทาน คมกริบ</p>
+                                </div>
+                                <button onclick="quickAdd('มีดพก')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-d10e5790-ea19-4180-941d-65370d5f8784.png" class="card-img-top" alt="เข็มทิศ">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">SAFETY</span>
+                                    <h5 class="card-title">เข็มทิศ</h5>
+                                    <p class="card-text text-muted small">เข็มทิศทหารนำทาง แม่นยำสูง ทนทานต่อแรงกระแทก</p>
+                                </div>
+                                <button onclick="quickAdd('เข็มทิศ')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- หมวดหมู่ที่ 5 -->
+            <div class="mb-5">
+                <h3 class="category-header">05 อุปกรณ์ส่วนตัว</h3>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-4e84fc90-f80f-4d0d-9d76-1a8d1476e857.png" class="card-img-top" alt="กระเป๋าเป้">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">PERSONAL GEAR</span>
+                                    <h5 class="card-title">กระเป๋าเป้</h5>
+                                    <p class="card-text text-muted small">กระเป๋าเป้ กันน้ำ ความจุสูง ซัพพอร์ตหลังได้ดี</p>
+                                </div>
+                                <button onclick="quickAdd('กระเป๋าเป้')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-cdfa2434-4403-490e-8975-d7d5c394bdbf.png" class="card-img-top" alt="เสื้อกันฝน">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">PERSONAL GEAR</span>
+                                    <h5 class="card-title">เสื้อกันฝน</h5>
+                                    <p class="card-text text-muted small">เสื้อกันฝนลุยป่า แห้งไว น้ำหนักเบา พับเก็บเหลือขนาดเล็กได้</p>
+                                </div>
+                                <button onclick="quickAdd('เสื้อกันฝน')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card product-card h-100">
+                            <div class="product-img-wrapper">
+                                <img src="https://cdn.phototourl.com/member/2026-07-04-32244e53-f21b-4d44-99dd-157ce069728a.png" class="card-img-top" alt="รองเท้าสำหรับเดินป่า">
+                                <img src="https://lh3.googleusercontent.com/d/1EOClXFjre8dzYAJuec0zNFAGW37t0wmW" class="img-watermark-logo" alt="Watermark">
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <span class="product-tag">PERSONAL GEAR</span>
+                                    <h5 class="card-title">รองเท้าสำหรับเดินป่า</h5>
+                                    <p class="card-text text-muted small">รองเท้าสำหรับเดินป่ากันลื่น ซับแรงกระแทก ยึดเกาะทุกพื้นผิว</p>
+                                </div>
+                                <button onclick="quickAdd('รองเท้าสำหรับเดินป่า')" class="btn btn-cyber-outline btn-sm mt-3">QUICK ADD // เพิ่ม</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container mb-5 px-3">
+        <section id="contact" class="contact-section section-padding px-3 px-md-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="section-title">
+                        <h2>SECURE TERMINAL<span>// ติดต่อสั่งซื้อ</span></h2>
+                        <p class="small">สามารถกดปุ่ม Quick Add ด้านบน หรือเลือกผสมสินค้าได้หลายชิ้นผ่านระบบตะกร้าจำลองด้านล่างนี้ครับ</p>
+                    </div>
+                    
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="fullname" class="form-label fw-bold">ชื่อ-นามสกุล <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fullname" placeholder="กรอกชื่อ-นามสกุลของคุณ" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label fw-bold">เบอร์โทรศัพท์ <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="phone" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" pattern="[0-9]{10}" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="email" class="form-label fw-bold">อีเมล (ถ้ามี)</label>
+                                <input type="email" class="form-control" id="email" placeholder="ตัวอย่าง: name@gmail.com">
+                            </div>
+                            
+                            <div class="col-md-8 mx-auto text-center mt-4">
+                                <label for="mainCategory" class="form-label fw-bold text-uppercase" style="color: var(--accent-cyber);">1. เลือกหมวดหมู่สินค้าที่สนใจ</label>
+                                <select class="form-select text-center" id="mainCategory" onchange="updateSubCategory()">
+                                    <option value="" selected disabled>-- เลือกหมวดหมู่สินค้า --</option>
+                                    <option value="camping">01 อุปกรณ์พักแรม </option>
+                                    <option value="cooking">02 อุปกรณ์ทำอาหาร </option>
+                                    <option value="lighting">03 อุปกรณ์ให้แสงสว่าง </option>
+                                    <option value="safety">04 อุปกรณ์ความปลอดภัย </option>
+                                    <option value="personal">05 อุปกรณ์ส่วนตัว </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-8 mx-auto sub-category-wrapper" id="subCategoryWrapper">
+                                <label for="subCategory" class="form-label fw-bold text-center d-block small">2. เจาะจงประเภทสินค้าเฉพาะ</label>
+                                <div class="input-group">
+                                    <select class="form-select" id="subCategory">
+                                        </select>
+                                    <button class="btn btn-outline-info" type="button" onclick="addItemToCart()">+ เพิ่มลงรายการ</button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8 mx-auto mt-3">
+                                <label class="form-label fw-bold small text-uppercase d-block text-center"><i class="bi bi-cart4"></i> รายการสินค้าในตะกร้าของคุณ</label>
+                                <div class="cart-box form-control text-start" id="cartContainer">
+                                    <span class="text-muted small d-block text-center py-2" id="emptyCartText">ยังไม่มีสินค้าในตะกร้า (เลือกสินค้าด้านบน หรือกด Quick Add)</span>
+                                </div>
+                                <input type="hidden" id="selectedProductsInput" name="selectedProducts">
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <label for="message" class="form-label fw-bold">ข้อความเพิ่มเติม (ถ้ามี)</label>
+                                <textarea class="form-control" id="message" rows="4" placeholder="กรอกรายละเอียด หรือข้อความเพิ่มเติมถึงเรา..."></textarea>
+                            </div>
+                            
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-submit">SEND TRANSMISSION // ส่งใบคำสั่งซื้อ</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="cyber-modal-overlay" id="cyberAlertModal">
+        <div class="cyber-modal-content">
+            <div class="cyber-modal-title" id="cyberModalTitle">
+                <i class="bi bi-shield-check text-info me-2"></i> TRANSMISSION SUCCESSFUL!
+            </div>
+            <div class="cyber-modal-body" id="cyberModalBody">
+            </div>
+            <button type="button" class="btn-modal-close" onclick="closeCyberModal()">CLOSE TRANSMISSION // ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container px-3">
+            <div class="row g-4">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3 text-white">RIFCAMPSHOP</h5>
+                    <p class="small" style="line-height: 1.8;">ผู้นำในการจัดจำหน่ายอุปกรณ์แคมป์ปิ้งและเอาท์ดอร์ คุณภาพ พร้อมส่งมอบประสบการณ์ที่ดีที่สุดให้กับนักเดินทาง</p>
+                </div>
+
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="fw-bold mb-3 text-white">ติดต่อเรา</h5>
+                    <ul class="list-unstyled small" style="line-height: 2;">
+                        <li class="d-flex align-items-start mb-2">
+                            <i class="bi bi-geo-alt-fill text-success me-2 mt-1"></i>
+                            <span>49/2 ม.3, ต.นาเกตุ, อ.โคกโพธิ์, จ.ปัตตานี, 94120</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="bi bi-telephone-fill text-success me-2"></i>
+                            <span>093-293-9247</span>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <i class="bi bi-envelope-fill text-success me-2"></i>
+                            <a href="mailto:info@wildcamp.com" class="text-decoration-none text-muted">arifauma9247@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3 text-white">ติดตามเราได้ที่</h5>
+                    <div class="d-flex gap-3 fs-5">
+                        <a href="https://www.facebook.com/share/1F4rULmpVk/" target="_blank" class="social-icon text-white-50">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ar1f_50" target="_blank" class="social-icon text-white-50">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://line.me/ti/p/~YOUR_LINE_ID" target="_blank" class="social-icon text-white-50">
+                            <i class="bi bi-line"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@haiper.11" target="_blank" class="social-icon text-white-50">
+                            <i class="bi bi-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2026 RIFCAMPSHOP. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const subCategories = {
+            camping: ["เต็นท์", "ถุงนอน", "แผ่นรองนอน"],
+            cooking: ["เตาแก๊สพกพา", "กระทะ", "กาต้มน้ำร้อน"],
+            lighting: ["ไฟฉาย", "โคมไฟ", "ไฟคาดหัว"],
+            safety: ["ชุดปฐมพยาบาล", "มีดพก", "เข็มทิศ"],
+            personal: ["กระเป๋าเป้", "เสื้อกันฝน", "รองเท้าสำหรับเดินป่า"]
+        };
+
+        let cartItems = {};
+
+        function updateSubCategory() {
+            const mainSelect = document.getElementById('mainCategory');
+            const subWrapper = document.getElementById('subCategoryWrapper');
+            const subSelect = document.getElementById('subCategory');
+            const selectedValue = mainSelect.value;
+
+            if (selectedValue && subCategories[selectedValue]) {
+                subSelect.innerHTML = '<option value="" selected disabled>-- เลือกสินค้าเฉพาะตำแหน่ง --</option>';
+                subCategories[selectedValue].forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    subSelect.appendChild(option);
+                });
+                subWrapper.classList.add('show');
+            } else {
+                subWrapper.classList.remove('show');
+            }
+        }
+
+        function addItemToCart() {
+            const subSelect = document.getElementById('subCategory');
+            const item = subSelect.value;
+            
+            if(!item || item === "") {
+                const errorHtml = `
+                    <p style="text-align: center; font-size: 1.15rem; font-weight: 600; margin: 15px 0; color: #ffffff !important; line-height: 1.6;">
+                        โปรดเลือกประเภทสินค้าเฉพาะก่อนกดเพิ่มครับ!
+                    </p>
+                    <p style="text-align: center; font-size: 0.9rem; color: #a0aec0; margin-bottom: 5px; line-height: 1.5;">
+                        กรุณาเลือกรายละเอียดสินค้าในช่อง <br>
+                        <span style="color: #00f0ff;">"2. เจาะจงประเภทสินค้าเฉพาะ"</span> ให้เรียบร้อยก่อนครับ
+                    </p>
+                `;
+                showCyberModal("TRANSMISSION ERROR", "bi bi-exclamation-triangle-fill text-danger", errorHtml);
+                return;
+            }
+            pushToCart(item);
+        }
+
+        function quickAdd(itemName) {
+            pushToCart(itemName);
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function pushToCart(item) {
+            if (cartItems[item]) {
+                cartItems[item] += 1;
+            } else {
+                cartItems[item] = 1;
+            }
+            renderCart();
+        }
+
+        function updateQty(item, amount) {
+            if (!cartItems[item]) return;
+            cartItems[item] += amount;
+            if (cartItems[item] <= 0) {
+                delete cartItems[item];
+            }
+            renderCart();
+        }
+
+        function removeItem(item) {
+            delete cartItems[item];
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartContainer');
+            const hiddenInput = document.getElementById('selectedProductsInput');
+            const keys = Object.keys(cartItems);
+            
+            if(keys.length === 0) {
+                container.innerHTML = '<span class="text-muted small d-block text-center py-2" id="emptyCartText">ยังไม่มีสินค้าในตะกร้า (เลือกสินค้าด้านบน หรือกด Quick Add)</span>';
+                hiddenInput.value = "";
+                return;
+            }
+
+            container.innerHTML = "";
+            keys.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'cart-item';
+                row.innerHTML = `
+                    <span>${item}</span>
+                    <div class="qty-controls">
+                        <button type="button" class="btn-qty" onclick="updateQty('${item}', -1)">-</button>
+                        <span class="qty-num">${cartItems[item]}</span>
+                        <button type="button" class="btn-qty" onclick="updateQty('${item}', 1)">+</button>
+                        <i class="bi bi-trash3-fill btn-remove-item" onclick="removeItem('${item}')"></i>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            hiddenInput.value = JSON.stringify(cartItems);
+        }
+
+        function toggleTheme() {
+            const htmlTag = document.documentElement;
+            const currentTheme = htmlTag.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlTag.setAttribute('data-bs-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleBtnElement(newTheme);
+        }
+
+        function updateToggleBtnElement(theme) {
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+            
+            if (theme === 'dark') {
+                icon.className = 'bi bi-moon-stars-fill';
+                text.innerText = 'โหมดมืด';
+            } else {
+                icon.className = 'bi bi-sun-fill';
+                text.innerText = 'โหมดสว่าง';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            updateToggleBtnElement(savedTheme);
+        });
+
+        // --- Mouse / Touch Glow ---
+        (function () {
+            const glow = document.getElementById('mouseGlow');
+            if (!glow) return;
+
+            function moveGlow(x, y) {
+                glow.style.left = x + 'px';
+                glow.style.top = y + 'px';
+                glow.classList.add('active');
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                moveGlow(e.clientX, e.clientY);
+            });
+
+            document.addEventListener('mouseleave', () => {
+                glow.classList.remove('active');
+            });
+
+            document.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                if (touch) moveGlow(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            document.addEventListener('touchmove', (e) => {
+                const touch = e.touches[0];
+                if (touch) moveGlow(touch.clientX, touch.clientY);
+            }, { passive: true });
+
+            document.addEventListener('touchend', () => {
+                glow.classList.remove('active');
+            });
+        })();
+
+        function showCyberModal(titleText, iconClass, contentHtml) {
+            const modalOverlay = document.getElementById('cyberAlertModal');
+            const modalTitle = document.getElementById('cyberModalTitle');
+            const modalBody = document.getElementById('cyberModalBody');
+            
+            modalTitle.innerHTML = `<i class="${iconClass} me-2"></i> ${titleText}`;
+            modalBody.innerHTML = contentHtml;
+            modalOverlay.classList.add('active');
+        }
+
+        function closeCyberModal() {
+            const modalOverlay = document.getElementById('cyberAlertModal');
+            modalOverlay.classList.remove('active');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault(); 
+            const keys = Object.keys(cartItems);
+            
+            if(keys.length === 0) {
+                const errorHtml = `
+                    <p style="text-align: center; font-size: 1.15rem; font-weight: 600; margin: 15px 0; color: #ffffff !important;">
+                        โปรดเลือกสินค้าอย่างน้อย 1 รายการลงในตะกร้าก่อนส่งข้อมูลครับ!
+                    </p>
+                    <p style="text-align: center; font-size: 0.9rem; color: #a0aec0; margin-bottom: 5px;">
+                        คุณสามารถคลิกปุ่ม [Quick Add] ใต้รูปภาพสินค้า หรือคลิกเลือกสินค้าจากหมวดหมู่ด้านบนได้เลย
+                    </p>
+                `;
+                showCyberModal("TRANSMISSION ERROR", "bi bi-exclamation-triangle-fill text-danger", errorHtml);
+                return;
+            }
+            
+            let totalPieces = 0;
+            let listItemsHtml = "";
+            
+            keys.forEach(key => {
+                listItemsHtml += `<div style="margin: 4px 0; font-size:0.95rem; color:#ffffff;">• ${key} <span class="text-info">จำนวน ${cartItems[key]} ชิ้น</span></div>`;
+                totalPieces += cartItems[key];
+            });
+
+            const modalMessageHtml = `
+                <p style="margin-bottom: 12px; color: #ffffff;">ระบบได้รับข้อมูลการติดต่อสั่งซื้อของท่านเรียบร้อยแล้ว</p>
+                <p style="font-weight: 600; margin-bottom: 5px; color: #ffffff;">📦 รายการสินค้าที่สั่งซื้อ (รวมทั้งหมด ${totalPieces} ชิ้น):</p>
+                <div class="modal-cart-summary">
+                    ${listItemsHtml}
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #a0aec0;">เจ้าหน้าที่ฝ่ายบริการเทคนิคจะติดต่อกลับไปยังเบอร์ที่ระบุโดยด่วนที่สุดครับ!</p>
+            `;
+            
+            showCyberModal("TRANSMISSION SUCCESSFUL!", "bi bi-shield-check text-info", modalMessageHtml);
+            
+            document.getElementById('contactForm').reset();
+            cartItems = {};
+            renderCart();
+            document.getElementById('subCategoryWrapper').classList.remove('show');
+        }
+    </script>
+</body>
+</html>
