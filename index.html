@@ -165,22 +165,7 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* --- Mouse / Touch Glow --- */
-        .mouse-glow {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 380px;
-            height: 380px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, rgba(0, 242, 254, 0.10) 40%, transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.25s ease;
-            mix-blend-mode: screen;
-        }
+        
         .mouse-glow.active {
             opacity: 1;
         }
@@ -633,7 +618,7 @@
         <div class="tech-particle p10"></div>
     </div>
 
-    <div class="mouse-glow" id="mouseGlow"></div>
+
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -1215,41 +1200,6 @@
 
             hiddenInput.value = JSON.stringify(cartItems);
         }
-
-
-        // --- Mouse / Touch Glow ---
-        (function () {
-            const glow = document.getElementById('mouseGlow');
-            if (!glow) return;
-
-            function moveGlow(x, y) {
-                glow.style.left = x + 'px';
-                glow.style.top = y + 'px';
-                glow.classList.add('active');
-            }
-
-            document.addEventListener('mousemove', (e) => {
-                moveGlow(e.clientX, e.clientY);
-            });
-
-            document.addEventListener('mouseleave', () => {
-                glow.classList.remove('active');
-            });
-
-            document.addEventListener('touchstart', (e) => {
-                const touch = e.touches[0];
-                if (touch) moveGlow(touch.clientX, touch.clientY);
-            }, { passive: true });
-
-            document.addEventListener('touchmove', (e) => {
-                const touch = e.touches[0];
-                if (touch) moveGlow(touch.clientX, touch.clientY);
-            }, { passive: true });
-
-            document.addEventListener('touchend', () => {
-                glow.classList.remove('active');
-            });
-        })();
 
         function showCyberModal(titleText, iconClass, contentHtml) {
             const modalOverlay = document.getElementById('cyberAlertModal');
